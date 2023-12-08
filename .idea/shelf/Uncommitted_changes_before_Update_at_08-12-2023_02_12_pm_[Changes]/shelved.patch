@@ -1,0 +1,190 @@
+Index: app/src/main/res/layout/activity_sign_up.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@drawable/bg\">\r\n\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        tools:context=\".SignUp\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView2\"\r\n            android:layout_width=\"294dp\"\r\n            android:layout_height=\"102dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.504\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:srcCompat=\"@drawable/img\" />\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtname\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintBottom_toTopOf=\"@+id/txtmobile\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/textView\"\r\n            tools:ignore=\"MissingConstraints\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_person_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter Name\"\r\n                android:inputType=\"text\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtmobile\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtname\"\r\n            tools:ignore=\"MissingConstraints\"\r\n            tools:layout_editor_absoluteY=\"258dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_call_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter Mobile\"\r\n                android:inputType=\"number\"\r\n                android:maxLength=\"10\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtEmail\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtmobile\"\r\n            tools:ignore=\"MissingConstraints\"\r\n            tools:layout_editor_absoluteY=\"258dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_email_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter E-Mail\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:maxLength=\"10\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtPass\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtEmail\"\r\n            tools:ignore=\"MissingConstraints\"\r\n            tools:layout_editor_absoluteY=\"258dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_password_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter Password\"\r\n                android:inputType=\"textPassword\"\r\n                android:maxLength=\"10\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtConPass\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtPass\"\r\n            tools:ignore=\"MissingConstraints\"\r\n            tools:layout_editor_absoluteY=\"258dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_lock_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter Conform Password\"\r\n                android:inputType=\"textPassword\"\r\n                android:maxLength=\"10\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:id=\"@+id/txtDl\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"374dp\"\r\n            android:layout_height=\"71dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:textColorHint=\"#909090\"\r\n            app:boxStrokeColor=\"#4CAF50\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.486\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtConPass\"\r\n            tools:ignore=\"MissingConstraints\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:drawableLeft=\"@drawable/baseline_drive_eta_24\"\r\n                android:drawablePadding=\"10dp\"\r\n                android:hint=\"Enter Aadhar Card Number\"\r\n                android:inputType=\"number\"\r\n                android:maxLength=\"10\"\r\n                android:textColor=\"#000000\" />\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView\"\r\n            android:layout_width=\"380dp\"\r\n            android:layout_height=\"61dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Register YourSelf\"\r\n            android:textColor=\"#000000\"\r\n            android:textSize=\"24sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.483\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/imageView2\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView2\"\r\n            android:layout_width=\"229dp\"\r\n            android:layout_height=\"35dp\"\r\n            android:layout_marginStart=\"16dp\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Upload Aadhar Card Pic\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/imageView3\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/imageView3\" />\r\n\r\n        <ImageButton\r\n            android:id=\"@+id/imageView3\"\r\n            android:layout_width=\"90dp\"\r\n            android:layout_height=\"72dp\"\r\n            android:layout_marginTop=\"24dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.495\"\r\n            app:layout_constraintStart_toEndOf=\"@+id/textView2\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/txtDl\"\r\n            app:srcCompat=\"@drawable/baseline_document_scanner_24\" />\r\n\r\n        <Spinner\r\n            android:id=\"@+id/spinner\"\r\n            style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n            android:layout_width=\"187dp\"\r\n            android:layout_height=\"43dp\"\r\n            android:layout_marginTop=\"24dp\"\r\n            android:layout_marginEnd=\"4dp\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/txtDl\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/imageView3\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView3\"\r\n            android:layout_width=\"151dp\"\r\n            android:layout_height=\"27dp\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Choose Your City\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/spinner\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/textView2\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/spinner\" />\r\n\r\n        <RadioGroup\r\n            android:id=\"@+id/radioGroup\"\r\n            android:layout_width=\"135dp\"\r\n            android:layout_height=\"92dp\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:gravity=\"center\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/spinner\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/spinner\">\r\n\r\n            <RadioButton\r\n                android:id=\"@+id/radioButton6\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"31dp\"\r\n                android:text=\"Male\"\r\n                android:textSize=\"14sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n            <RadioButton\r\n                android:id=\"@+id/radioButton7\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"31dp\"\r\n                android:text=\"Female\"\r\n                android:textSize=\"14sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n            <RadioButton\r\n                android:id=\"@+id/radioButton5\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"31dp\"\r\n                android:text=\"Other\"\r\n                android:textSize=\"14sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n        </RadioGroup>\r\n\r\n        <Button\r\n            android:id=\"@+id/button\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Button\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/radioGroup\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView4\"\r\n            android:layout_width=\"127dp\"\r\n            android:layout_height=\"50dp\"\r\n            android:gravity=\"center\"\r\n            android:text=\"Gender\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/radioGroup\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/textView3\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/radioGroup\"\r\n            app:layout_constraintVertical_bias=\"0.448\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_sign_up.xml b/app/src/main/res/layout/activity_sign_up.xml
+--- a/app/src/main/res/layout/activity_sign_up.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/app/src/main/res/layout/activity_sign_up.xml	(date 1701518046318)
+@@ -271,9 +271,10 @@
+ 
+         <Button
+             android:id="@+id/button"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="Button"
++            android:layout_width="196dp"
++            android:layout_height="52dp"
++            android:text="Register"
++            android:textSize="20sp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ /dev/null	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <value>
+-      <entry key="app">
+-        <State />
+-      </entry>
+-    </value>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ /dev/null	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/compiler.xml
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+deleted file mode 100644
+--- a/.idea/compiler.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ /dev/null	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="17" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/migrations.xml
+===================================================================
+diff --git a/.idea/migrations.xml b/.idea/migrations.xml
+deleted file mode 100644
+--- a/.idea/migrations.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ /dev/null	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectMigrations">
+-    <option name="MigrateToGradleLocalJavaHome">
+-      <set>
+-        <option value="$PROJECT_DIR$" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleHome\" value=\"$USER_HOME$/.gradle/caches/gradle-8.2\" />\r\n        <option name=\"gradleJvm\" value=\"jbr-17\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/.idea/gradle.xml	(date 1702018749635)
+@@ -1,19 +1,18 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+-        <option name="testRunner" value="GRADLE" />
+-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleHome" value="$USER_HOME$/.gradle/caches/gradle-8.2" />
+-        <option name="gradleJvm" value="jbr-17" />
++        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+             <option value="$PROJECT_DIR$/app" />
+           </set>
+         </option>
++        <option name="resolveExternalAnnotations" value="false" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/.idea/vcs.xml	(date 1702018763873)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Sat Dec 02 08:09:10 IST 2023\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\n#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.2-bin.zip\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-bin.zip\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1702018535249)
+@@ -2,6 +2,6 @@
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ #distributionUrl=https\://services.gradle.org/distributions/gradle-8.2-bin.zip
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.2-bin.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\n//plugins {\r\n//    id(\"com.android.application\") version \"8.2.0\" apply false\r\n//}\r\nplugins {\r\n    id(\"com.android.application\") version \"8.1.4\" apply false\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/build.gradle.kts	(date 1702018535186)
+@@ -3,5 +3,5 @@
+ //    id("com.android.application") version "8.2.0" apply false
+ //}
+ plugins {
+-    id("com.android.application") version "8.1.4" apply false
++    id("com.android.application") version "8.2.0" apply false
+ }
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 1e6835c2779bc75e360f350e445a240ba651d110)
++++ b/.idea/misc.xml	(date 1702023476605)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
