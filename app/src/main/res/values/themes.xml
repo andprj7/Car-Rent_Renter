@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.CarOnRentRenter" parent="Base.Theme.CarOnRentRenter" />
+    <style name="TEXT">
+        <item name="android:textColor">#000</item>
+    </style>
 </resources>
