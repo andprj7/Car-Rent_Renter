@@ -25,7 +25,7 @@
                     android:layout_height="69dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
-                    android:src="@tools:sample/avatars"
+                    android:src="@drawable/baseline_airline_seat_recline_normal_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
                     android:layout_width="40dp"
                     android:layout_height="39dp"
                     android:layout_marginEnd="32dp"
-                    android:src="@tools:sample/avatars"
+                    android:src="@drawable/baseline_add_location_24"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -72,7 +72,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/edit_text_search_bg"
-                android:drawableStart="@drawable/home"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:paddingLeft="8dp"
                 android:drawablePadding="8dp"
                 android:ems="10"
                 android:hint="Search here..."
@@ -103,8 +104,9 @@
                             android:layout_width="61dp"
                             android:layout_height="73dp"
                             android:layout_marginEnd="8dp"
+                            android:scaleType="centerInside"
 
-                            android:src="@tools:sample/avatars"
+                            android:src="@drawable/lambo"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -137,8 +139,9 @@
                             android:layout_width="61dp"
                             android:layout_height="73dp"
                             android:layout_marginEnd="8dp"
+                            android:scaleType="centerInside"
 
-                            android:src="@tools:sample/avatars"
+                            android:src="@drawable/bmw"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -149,7 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Weadding"
+                            android:text="Wedding"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -178,8 +181,9 @@
                             android:layout_width="61dp"
                             android:layout_height="73dp"
                             android:layout_marginEnd="8dp"
+                            android:scaleType="centerInside"
 
-                            android:src="@tools:sample/avatars"
+                            android:src="@drawable/skoda"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -212,8 +216,8 @@
                             android:layout_width="61dp"
                             android:layout_height="73dp"
                             android:layout_marginEnd="8dp"
-
-                            android:src="@tools:sample/avatars"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/all"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -311,11 +315,34 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/viewPopular1"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="30dp"
                 android:clipToPadding="false"
                 android:paddingEnd="24dp"
                 android:paddingStart="24dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginBottom="41dp"
+                    android:backgroundTint="@color/green"
+                    android:src="@drawable/baseline_add_24"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+
         </LinearLayout>
+
+
 
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
