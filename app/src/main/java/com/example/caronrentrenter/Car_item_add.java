@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -24,11 +25,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -38,6 +43,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Car_item_add extends AppCompatActivity {
+
+
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_NAME = "emailShare";
+
+    String emailShare;
+    String mob;
 
     Spinner spinner,spinner1;
 
@@ -54,6 +67,7 @@ public class Car_item_add extends AppCompatActivity {
     EditText modelName, modelDescription, rentPerDay, maximumSpeed, Fuel, carRating, numberPassengers;
     ProgressBar progressBar;
     private Uri imageUri;
+    private DatabaseReference usersRef;
     DatabaseReference databaseReference;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     String selectedOption;
@@ -74,7 +88,7 @@ public class Car_item_add extends AppCompatActivity {
         items.add("Off roding");
         items.add("Transport");
         items.add("Luxuries");
-        items.add("General");
+        items.add("Others");
         spinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, items));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -154,6 +168,45 @@ public class Car_item_add extends AppCompatActivity {
         uploadImage = findViewById(R.id.uploadImage);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+
+
+
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        emailShare = sharedPreferences.getString(KEY_NAME, null);
+
+//        txtname.setText(emailShare);
+
+
+        usersRef = FirebaseDatabase.getInstance().getReference("Renters");
+
+        usersRef.orderByChild("email").equalTo(emailShare).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String imageUrl = userSnapshot.child("imageURLUser").getValue(String.class);
+//                    Glide.with(Car_item_add.this).load(imageUrl).into(showProfilePic);
+
+                    mob = userSnapshot.child("mobile").getValue(String.class);
+
+//                    usern = userSnapshot.child("name").getValue(String.class);
+//                    userName = userSnapshot.child("username").getValue(String.class);
+//                    userEmail = userSnapshot.child("email").getValue(String.class);
+//                    userPassword = userSnapshot.child("password").getValue(String.class);
+//
+//                    role = userSnapshot.child("role").getValue(String.class);
+
+                    // Now you can use the imageUrl in your app, e.g., to load the image using an image loading library like Glide or Picasso.
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the error, if any.
+            }
+        });
+
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -240,7 +293,8 @@ public class Car_item_add extends AppCompatActivity {
                     imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            DataClass dataClass = new DataClass(Model.toString(), uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString());
+                            DataClass dataClass = new DataClass(Model, uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString());
+//                            databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child("General").child("Company").child(CarCompany.toString());
                             databaseReference = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company").child(CarCompany.toString());
                             String key = databaseReference.push().getKey();
                             databaseReference.child(Model).setValue(dataClass);
@@ -277,7 +331,8 @@ public class Car_item_add extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             DataClass dataClass = new DataClass(Model.toString(), uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString());
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+//                            databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+                            databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
 
                             String key = databaseReference.push().getKey();
                             databaseReference.child(Model).setValue(dataClass);

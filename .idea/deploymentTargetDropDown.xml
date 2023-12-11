@@ -5,6 +5,12 @@
       <entry key="Car_item_add">
         <State />
       </entry>
+      <entry key="Detail">
+        <State />
+      </entry>
+      <entry key="Login">
+        <State />
+      </entry>
       <entry key="MainActivity">
         <State />
       </entry>

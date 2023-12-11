@@ -71,7 +71,7 @@ public class SignUp extends AppCompatActivity {
     //final  private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Images");
     final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference = database.getReference("users");
+    DatabaseReference reference = database.getReference("Renters");
     RadioGroup radioGroup;
     String selectedOption;
     RadioButton rdb_male, rdb_female, rdb_others;
@@ -228,7 +228,7 @@ public class SignUp extends AppCompatActivity {
     private void uploadUserDetails() {
         // Upload user details to Firebase
         if (imageUri != null) {
-            final StorageReference imageReference = storageReference.child("users/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
+            final StorageReference imageReference = storageReference.child("renters/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
             imageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

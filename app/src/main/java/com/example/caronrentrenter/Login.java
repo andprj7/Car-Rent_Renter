@@ -2,6 +2,7 @@ package com.example.caronrentrenter;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +26,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
+
+
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_NAME = "emailShare";
+
+    String emailShare;
     private static final String TAG = "Login";
     Button btn;
     TextView txtact;
@@ -36,6 +44,29 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+
+        emailShare = sharedPreferences.getString(KEY_NAME, null);
+
+
+
+        if (emailShare != null) {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+//            finish();
+        }
+
+
+
+
+
+
+
 
         btn = findViewById(R.id.btn_login);
         txtact = findViewById(R.id.txt_regis);
@@ -111,6 +142,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(KEY_NAME, txtemail.getText().toString());
+//                            editor.putString(KEY_ROLE, selectedOption.trim());
+                    //editor.putString(KEY_PWD,edtpwd.getText().toString());
+                    editor.apply();
+
                     Intent intent=new Intent(Login.this, MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
@@ -167,8 +205,8 @@ public class Login extends AppCompatActivity {
         super.onStart();
         if (auth.getCurrentUser() != null) {
             Toast.makeText(this, "You are already logged in", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(Login.this, MainActivity.class);
+//            startActivity(intent);
 //            finish();
         } else {
             Toast.makeText(this, "You can login now!", Toast.LENGTH_SHORT).show();
