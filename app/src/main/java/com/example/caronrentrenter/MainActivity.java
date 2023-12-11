@@ -3,6 +3,7 @@ package com.example.caronrentrenter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caronrentrenter.Adapter.ItemAdapter;
+import com.example.caronrentrenter.Adapter.RenterAdapter;
 import com.example.caronrentrenter.Domain.ItemDomain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -25,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ItemAdapter adapter;
-//    final private DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company").child("Audi");
+    private RenterAdapter adapter1;
+    //    final private DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company").child("Audi");
     final private DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company");
+    final private DatabaseReference databaseReference_High1 = FirebaseDatabase.getInstance().getReference("Renters");
 
 
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Renters");
@@ -56,32 +60,74 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerViewNew.setHasFixedSize(true);
         recyclerViewNew.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
         databaseReference_High.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                ArrayList<DataClass> dataList=new ArrayList<>();
+                ArrayList<DataClass> dataList = new ArrayList<>();
                 //for each lagavvu
                 // snapnot.getChildern()
 
 
                 snapshot.getChildren();
 
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         DataClass dataClass = dataSnapshot1.getValue(DataClass.class);
                         dataList.add(dataClass);
                     }
 
                 }
                 adapter = new ItemAdapter(MainActivity.this, dataList);
+//                recyclerViewPopular.setAdapter(adapter);
+//                recyclerViewNew.setAdapter(adapter);
+
+
                 recyclerViewPopular.setAdapter(adapter);
-                recyclerViewNew.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
 
+        databaseReference_High1.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+//                ArrayList<DataClass> dataList = new ArrayList<>();
+                ArrayList<ReadWriteUserDetails> dataList1 = new ArrayList<>();
+                //for each lagavvu
+                // snapnot.getChildern()
 
 
+//                snapshot.getChildren();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    ReadWriteUserDetails dataClass = dataSnapshot.getValue(ReadWriteUserDetails.class);
+                    dataList1.add(dataClass);
+
+                }
+
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+////                        DataClass dataClass = dataSnapshot1.getValue(DataClass.class);
+////                        dataList.add(dataClass);
+//                        ReadWriteUserDetails dataClass = dataSnapshot1.getValue(ReadWriteUserDetails.class);
+//                        dataList1.add(dataClass);
+//                    }
+//
+//                }
+//                adapter = new ItemAdapter(MainActivity.this, dataList);
+                adapter1 = new RenterAdapter(MainActivity.this, dataList1);
+//                recyclerViewPopular.setAdapter(adapter);
+                recyclerViewNew.setAdapter(adapter1);
 
 
 //                recyclerViewNew.setAdapter(adapter);
@@ -92,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
 
 
         fab = findViewById(R.id.fab);
@@ -107,18 +152,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
     }
-
-
-
-
-
 
 
 //
