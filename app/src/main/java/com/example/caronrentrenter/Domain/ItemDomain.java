@@ -12,6 +12,8 @@ public class ItemDomain implements Serializable {
     private int bath;
     private int price;
 
+
+
     public ItemDomain(String title, String address, String description, int bed, int bath, int price, String pic) {
         this.title = title;
         this.address = address;
