@@ -1,6 +1,8 @@
 package com.example.caronrentrenter;
 
-public class ReadWriteUserDetails  {
+import java.io.Serializable;
+
+public class ReadWriteUserDetails implements Serializable {
     public String name, email,pass,mobile, city, dll, gender,imageURLUser;
 
 //    Name, Email, Pass,Mobile,City, Dll,Gender,uri.toString()

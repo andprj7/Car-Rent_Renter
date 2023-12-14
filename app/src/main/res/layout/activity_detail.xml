@@ -20,14 +20,35 @@
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/imageslider"
+<!--        <com.denzcoskun.imageslider.ImageSlider-->
+<!--            android:id="@+id/imageslider"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            app:iss_auto_cycle="true"-->
+<!--            app:iss_corner_radius="20"-->
+<!--            app:iss_delay="10000"-->
+<!--            app:iss_period="1000" />-->
+
+
+
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/viewPopular"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:paddingEnd="24dp"-->
+<!--            android:paddingStart="5dp"/>-->
+        <ImageView
+            android:id="@+id/img"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:iss_auto_cycle="true"
-            app:iss_corner_radius="20"
-            app:iss_delay="10000"
-            app:iss_period="1000" />
+            android:layout_height="match_parent"
+            android:src="@drawable/all"
+            android:scaleType="centerInside"/>
+
+
+
 
     </androidx.cardview.widget.CardView>
 
@@ -227,9 +248,9 @@
                             android:id="@+id/textView13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:layout_marginEnd="314dp"
+                            android:layout_marginEnd="298dp"
                             android:text="Car Info"
                             android:textColor="#000000"
                             android:textSize="16sp"
@@ -249,7 +270,7 @@
                             app:srcCompat="@drawable/baseline_person_24" />
 
                         <TextView
-                            android:id="@+id/textView14"
+                            android:id="@+id/txtPassengers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -303,7 +324,7 @@
                             android:layout_height="28dp"
                             android:layout_marginStart="40dp"
                             app:layout_constraintBottom_toBottomOf="@+id/txtdoor"
-                            app:layout_constraintStart_toEndOf="@+id/textView14"
+                            app:layout_constraintStart_toEndOf="@+id/txtPassengers"
                             app:layout_constraintTop_toTopOf="@+id/txtdoor"
                             app:layout_constraintVertical_bias="1.0"
                             app:srcCompat="@drawable/car_door" />
@@ -317,7 +338,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.098"
                             app:layout_constraintStart_toEndOf="@+id/img_door"
-                            app:layout_constraintTop_toTopOf="@+id/textView14" />
+                            app:layout_constraintTop_toTopOf="@+id/txtPassengers" />
 
                         <ImageView
                             android:id="@+id/img_fuel"
@@ -386,7 +407,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/lambo" />
+                            app:srcCompat="@drawable/car" />
 
                         <TextView
                             android:id="@+id/textView9"
@@ -409,7 +430,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout10"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="90dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/white_background"
                     android:elevation="3dp"
@@ -426,21 +447,21 @@
 
                         <ImageView
                             android:id="@+id/imageView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="37dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/baseline_add_24"
+                            app:srcCompat="@drawable/speed"
                             tools:ignore="DuplicateIds" />
 
                         <TextView
-                            android:id="@+id/txttime"
+                            android:id="@+id/txtMaxSpeed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="- min"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView9"
@@ -456,7 +477,7 @@
                             android:layout_margin="8dp"
                             android:text="Max. Speed"
                             android:textColor="@color/black"
-                            app:layout_constraintEnd_toEndOf="@+id/txttime"
+                            app:layout_constraintEnd_toEndOf="@+id/txtMaxSpeed"
                             app:layout_constraintStart_toStartOf="@+id/imageView9"
                             app:layout_constraintTop_toBottomOf="@+id/imageView9"
                             tools:ignore="DuplicateIds" />
@@ -476,13 +497,13 @@
 
                         <ImageView
                             android:id="@+id/imageView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="37dp"
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/baseline_add_location_24"
+                            app:srcCompat="@drawable/quick"
                             tools:ignore="DuplicateIds" />
 
                         <TextView
@@ -527,13 +548,13 @@
 
                         <ImageView
                             android:id="@+id/imageView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="37dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/baseline_search_24"
+                            app:srcCompat="@drawable/speedometer"
                             tools:ignore="DuplicateIds" />
 
                         <TextView
@@ -541,7 +562,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="0 cal"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView9"
@@ -602,7 +623,7 @@
                             android:layout_height="36dp"
                             android:layout_marginStart="16dp"
                             android:gravity="center|left"
-                            android:text="Red mazda 6 - Elite State"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="24sp"
                             android:textStyle="bold"

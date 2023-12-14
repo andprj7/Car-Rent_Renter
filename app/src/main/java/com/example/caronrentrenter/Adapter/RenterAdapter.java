@@ -85,7 +85,7 @@ public class RenterAdapter extends RecyclerView.Adapter<RenterAdapter.ViewHolder
             public void onClick(View view) {
                 Intent intent=new Intent(holder.itemView.getContext(), Detail.class);
 //                intent.putExtra("object",item.get(position));
-                intent.putExtra("object", (CharSequence) dataList1.get(holder.getAdapterPosition()));
+                intent.putExtra("object1",  dataList1.get(holder.getPosition()));
                 context1.startActivity(intent);
             }
         });

@@ -81,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//
+//                        DataClass dataClass = dataSnapshot.getValue(DataClass.class);
+//                        dataList.add(dataClass);
+//
+//
+//                }
                 adapter = new ItemAdapter(MainActivity.this, dataList);
 //                recyclerViewPopular.setAdapter(adapter);
 //                recyclerViewNew.setAdapter(adapter);

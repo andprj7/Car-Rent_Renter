@@ -74,7 +74,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             public void onClick(View view) {
                 Intent intent=new Intent(holder.itemView.getContext(), Detail.class);
 //                intent.putExtra("object",item.get(position));
-                intent.putExtra("object",dataList.get(holder.getAdapterPosition()));
+                intent.putExtra("object1",dataList.get(holder.getAdapterPosition()));
                 context.startActivity(intent);
             }
         });
