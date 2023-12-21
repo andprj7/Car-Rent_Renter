@@ -17,6 +17,7 @@ import com.example.caronrentrenter.Detail;
 import com.example.caronrentrenter.R;
 import com.example.caronrentrenter.ReadWriteUserDetails;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class RenterAdapter extends RecyclerView.Adapter<RenterAdapter.ViewHolder
     ArrayList<ReadWriteUserDetails> dataList1;
 
     DecimalFormat formatter;
-    Context context,context1;
+    Context context1;
 
     public RenterAdapter() {
     }
@@ -47,7 +48,7 @@ public class RenterAdapter extends RecyclerView.Adapter<RenterAdapter.ViewHolder
    /* @NonNull
     @Override
     public RenterAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate= LayoutInflater.from(context).inflate(R.layout.item_view_holder,parent,false);
+        View inflate= LayoutInflater.from(context).inflate(R.layout.item_view_holder1,parent,false);
 //        context=parent.getContext();
         return new RenterAdapter.ViewHolder(inflate);
     }
@@ -65,28 +66,28 @@ public class RenterAdapter extends RecyclerView.Adapter<RenterAdapter.ViewHolder
 
 
     @Override
-    public void onBindViewHolder(@NonNull RenterAdapter.ViewHolder holder,  int position) {
+    public void onBindViewHolder(@NonNull RenterAdapter.ViewHolder holder1,  int position) {
 
         /*
-        Glide.with(context).load(dataList.get(position).getImageURL()).into(holder.pic);
-        holder.title.setText(dataList.get(position).getModelName());
-        holder.address.setText(dataList.get(position).getModelDescription());
-        holder.price.setText(dataList.get(position).getMaximumSpeed());
+        Glide.with(context).load(dataList.get(position).getImageURL()).into(holder1.pic);
+        holder1.title.setText(dataList.get(position).getModelName());
+        holder1.address.setText(dataList.get(position).getModelDescription());
+        holder1.price.setText(dataList.get(position).getMaximumSpeed());
         */
 
 
-        Glide.with(context1).load(dataList1.get(position).getImageURLUser()).into(holder.pic);
-        holder.title.setText(dataList1.get(position).getName());
-        holder.address.setText(dataList1.get(position).getEmail());
-        holder.price.setText(dataList1.get(position).getMobile());
+        Glide.with(context1).load(dataList1.get(position).getImageURLUser()).into(holder1.pic);
+        holder1.title.setText(dataList1.get(position).getName());
+        holder1.address.setText(dataList1.get(position).getEmail());
+        holder1.price.setText(dataList1.get(position).getMobile());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(holder.itemView.getContext(), Detail.class);
-//                intent.putExtra("object",item.get(position));
-                intent.putExtra("object1",  dataList1.get(holder.getPosition()));
-                context1.startActivity(intent);
+                Intent intent1=new Intent(holder1.itemView.getContext(), Detail.class);
+//                intent1.putExtra("object",item.get(position));
+                intent1.putExtra("no",dataList1.get(holder1.getAdapterPosition()));
+                context1.startActivity(intent1);
             }
         });
     }

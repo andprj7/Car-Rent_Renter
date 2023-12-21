@@ -17,23 +17,25 @@ public class DataClass implements Serializable {
     private String numberPassengers;
     private String gearMode;
     private String CarCompany;
-
+    private String CarType;
+    private String renterMobile;
 
     public DataClass() {
     }
 
-    public DataClass(String modelName, String imageURL, String modelDescription, String rentPerDay, String maximumSpeed, String fuel, String carRating ,String numberPassengers,String gearMode,String CarCompany) {
+    public DataClass(String modelName, String imageURL, String modelDescription, String rentPerDay, String maximumSpeed, String fuel, String carRating, String numberPassengers, String gearMode, String carCompany, String carType, String renterMobile) {
         this.modelName = modelName;
         this.imageURL = imageURL;
         this.modelDescription = modelDescription;
         this.rentPerDay = rentPerDay;
         this.maximumSpeed = maximumSpeed;
-        this.Fuel = fuel;
+        Fuel = fuel;
         this.carRating = carRating;
         this.numberPassengers = numberPassengers;
         this.gearMode = gearMode;
-        this.CarCompany = CarCompany;
-
+        CarCompany = carCompany;
+        CarType = carType;
+        this.renterMobile = renterMobile;
     }
 
     public String getModelName() {
@@ -84,6 +86,14 @@ public class DataClass implements Serializable {
         Fuel = fuel;
     }
 
+    public String getCarRating() {
+        return carRating;
+    }
+
+    public void setCarRating(String carRating) {
+        this.carRating = carRating;
+    }
+
     public String getNumberPassengers() {
         return numberPassengers;
     }
@@ -100,14 +110,32 @@ public class DataClass implements Serializable {
         this.gearMode = gearMode;
     }
 
-    public String getCarRating() {
-        return carRating;
+    public String getCarCompany() {
+        return CarCompany;
     }
 
-    public void setCarRating(String carRating) {
-        this.carRating = carRating;
+    public void setCarCompany(String carCompany) {
+        CarCompany = carCompany;
     }
-//    public DataClass(String title, String imageURL, String caption, String price, int time, int energy, String score) {
+
+    public String getCarType() {
+        return CarType;
+    }
+
+    public void setCarType(String carType) {
+        CarType = carType;
+    }
+
+    public String getRenterMobile() {
+        return renterMobile;
+    }
+
+    public void setRenterMobile(String renterMobile) {
+        this.renterMobile = renterMobile;
+    }
+
+
+    //    public DataClass(String title, String imageURL, String caption, String price, int time, int energy, String score) {
 //        this.title = title;
 //        this.imageURL = imageURL;
 //        this.caption = caption;

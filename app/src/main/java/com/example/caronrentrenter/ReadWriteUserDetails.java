@@ -3,15 +3,10 @@ package com.example.caronrentrenter;
 import java.io.Serializable;
 
 public class ReadWriteUserDetails implements Serializable {
-    public String name, email,pass,mobile, city, dll, gender,imageURLUser;
-
-//    Name, Email, Pass,Mobile,City, Dll,Gender,uri.toString()
-//    public ReadWriteUserDetails(String txtName,String txtEmail,String txtPass, String txtMobile, String City,  String txtDll,String txtGender,String imageURLUser) {
-//
-//    }
-
+    private String name, email, pass, mobile, city, dll, gender, imageURLUser;
 
     public ReadWriteUserDetails() {
+        // Default constructor
     }
 
     public ReadWriteUserDetails(String name, String email, String pass, String mobile, String city, String dll, String gender, String imageURLUser) {
@@ -25,7 +20,7 @@ public class ReadWriteUserDetails implements Serializable {
         this.imageURLUser = imageURLUser;
     }
 
-
+    // Getter and Setter methods
     public String getName() {
         return name;
     }
@@ -90,4 +85,3 @@ public class ReadWriteUserDetails implements Serializable {
         this.imageURLUser = imageURLUser;
     }
 }
-

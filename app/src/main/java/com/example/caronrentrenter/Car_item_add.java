@@ -52,11 +52,11 @@ public class Car_item_add extends AppCompatActivity {
     String emailShare;
     String mob;
 
-    Spinner spinner,spinner1;
+    Spinner spinner, spinner1;
 
     List<String> items;
     String item;
-  List<String> items1;
+    List<String> items1;
     String item1;
 
     RadioGroup radioGroup;
@@ -88,7 +88,7 @@ public class Car_item_add extends AppCompatActivity {
         items.add("Off roding");
         items.add("Transport");
         items.add("Luxuries");
-        items.add("Others");
+        items.add("General");
         spinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, items));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,8 +170,6 @@ public class Car_item_add extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
 
-
-
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
         emailShare = sharedPreferences.getString(KEY_NAME, null);
@@ -222,8 +220,6 @@ public class Car_item_add extends AppCompatActivity {
         });
 
 
-
-
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -269,93 +265,138 @@ public class Car_item_add extends AppCompatActivity {
     private void uploadToFirebase(Uri imageUri) {
 
 
-            String Model = modelName.getText().toString();
-            String Description = modelDescription.getText().toString();
-            //String Rent = rentPerDay.getText().toString();
-            String Rent = rentPerDay.getText().toString();
-//        Double Rent = Double.valueOf(rentPerDay.getText().toString());
-            String MaxSpeed = maximumSpeed.getText().toString();
-            String FuelStatus = Fuel.getText().toString();
-            String Rate = carRating.getText().toString();
-            String Passengers = numberPassengers.getText().toString();
-            String gearMode = selectedOption;
-            String CarCompany = spinner1.getSelectedItem().toString();
-            String CarType = spinner.getSelectedItem().toString();
+        String Model = modelName.getText().toString();
+        String Description = modelDescription.getText().toString();
+        //String Rent = rentPerDay.getText().toString();
+        String Rent = rentPerDay.getText().toString();
+//          Double Rent = Double.valueOf(rentPerDay.getText().toString());
+        String MaxSpeed = maximumSpeed.getText().toString();
+        String FuelStatus = Fuel.getText().toString();
+        String Rate = carRating.getText().toString();
+        String Passengers = numberPassengers.getText().toString();
+        String gearMode = selectedOption;
+        String CarCompany = spinner1.getSelectedItem().toString();
+        String CarType = spinner.getSelectedItem().toString();
 
-//        Double Rate = Double.valueOf(carRating.getText().toString());
+//          Double Rate = Double.valueOf(carRating.getText().toString());
 
-            StorageReference imageReference = storageReference.child("general/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        StorageReference imageReference = storageReference.child("general/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
 
-            imageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            DataClass dataClass = new DataClass(Model, uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString());
+        imageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        DataClass dataClass = new DataClass(Model, uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString(),CarType.toString() ,mob.toString());
 //                            databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child("General").child("Company").child(CarCompany.toString());
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company").child(CarCompany.toString());
-                            String key = databaseReference.push().getKey();
-                            databaseReference.child(Model).setValue(dataClass);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(Car_item_add.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            databaseReference = FirebaseDatabase.getInstance().getReference("Car").child("General").child(CarType.toString()).child("Company").child(CarCompany.toString());
+//                        databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+                        String key = databaseReference.push().getKey();
+                        databaseReference.child(Model).setValue(dataClass);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(Car_item_add.this, "Uploaded", Toast.LENGTH_SHORT).show();
 //                            Intent intent = new Intent(Car_item_add.this, MenuActivity.class);
 //                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(Car_item_add.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        finish();
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(Car_item_add.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 //            StorageReference imageReference2 = storageReference.child("sports/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            StorageReference imageReference2 = storageReference.child(CarType.toString() + "/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        StorageReference imageReference2 = storageReference.child(CarType.toString() + "/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
 
-            imageReference2.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imageReference2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            DataClass dataClass = new DataClass(Model.toString(), uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString());
+        imageReference2.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageReference2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        DataClass dataClass = new DataClass(Model.toString(), uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString(),CarType.toString(), mob.toString());
 //                            databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
 
-                            String key = databaseReference.push().getKey();
-                            databaseReference.child(Model).setValue(dataClass);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(Car_item_add.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        String key = databaseReference.push().getKey();
+                        databaseReference.child(Model).setValue(dataClass);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(Car_item_add.this, "Uploaded", Toast.LENGTH_SHORT).show();
 //                            Intent intent = new Intent(Car_item_add.this, MenuActivity.class);
 //                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(Car_item_add.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        finish();
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(Car_item_add.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+        StorageReference imageReference3 = storageReference.child(CarType.toString() +"/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+
+        imageReference3.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageReference3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        DataClass dataClass = new DataClass(Model, uri.toString(), Description.toString(), Rent.toString(), MaxSpeed.toString(), FuelStatus.toString(), Rate.toString(), Passengers.toString(), gearMode.toString(), CarCompany.toString(),CarType.toString() ,mob.toString());
+//                            databaseReference = FirebaseDatabase.getInstance().getReference("Renters").child(mob.toString()).child("Car").child("General").child("Company").child(CarCompany.toString());
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+//                        databaseReference = FirebaseDatabase.getInstance().getReference("Car").child(CarType.toString()).child("Company").child(CarCompany.toString());
+                        String key = databaseReference.push().getKey();
+                        databaseReference.child(Model).setValue(dataClass);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(Car_item_add.this, "Uploaded", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(Car_item_add.this, MenuActivity.class);
+//                            startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(Car_item_add.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
     }
@@ -426,18 +467,16 @@ public class Car_item_add extends AppCompatActivity {
             check = true;
         }
         if (spinner.getSelectedItem().toString() == "Car Category") {
-            Toast.makeText(Car_item_add.this,"Please select Category", Toast.LENGTH_SHORT).show();
-            check=false;
-        }
-        else {
-            check=true;
+            Toast.makeText(Car_item_add.this, "Please select Category", Toast.LENGTH_SHORT).show();
+            check = false;
+        } else {
+            check = true;
         }
         if (spinner.getSelectedItem().toString() == "Car Company Category") {
-            Toast.makeText(Car_item_add.this,"Please select Company Category", Toast.LENGTH_SHORT).show();
-            check=false;
-        }
-        else {
-            check=true;
+            Toast.makeText(Car_item_add.this, "Please select Company Category", Toast.LENGTH_SHORT).show();
+            check = false;
+        } else {
+            check = true;
         }
 
         return check;
