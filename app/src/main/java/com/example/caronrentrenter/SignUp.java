@@ -171,8 +171,8 @@ public class SignUp extends AppCompatActivity {
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 if (valid()) {
-                    progressBar.setVisibility(View.VISIBLE);
                     String email = String.valueOf(txtemail.getText());
                     String password = String.valueOf(txtpass.getText());
 
@@ -184,8 +184,11 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this, "Signup Successfully", Toast.LENGTH_SHORT).show();
                                 sendEmailVerification();
                                 uploadUserDetails();
+                                progressBar.setVisibility(View.GONE);
                             } else {
                                 handleAuthException(task.getException());
+                                progressBar.setVisibility(View.GONE);
+
                             }
                         }
                     });
@@ -369,6 +372,9 @@ public class SignUp extends AppCompatActivity {
             txtGender = rdb_male.getText().toString();
 //                    registeruser(txtName, txtMobile, txtEmail, txtPass, txtDll,City,txtGender);
             check = true;
+        }
+        if(!check){
+            progressBar.setVisibility(View.GONE);
         }
 
         return check;

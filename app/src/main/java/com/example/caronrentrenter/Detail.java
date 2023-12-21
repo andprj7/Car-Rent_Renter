@@ -1,7 +1,10 @@
 package com.example.caronrentrenter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,11 +26,28 @@ import java.util.ArrayList;
 
 public class Detail extends AppCompatActivity {
 
+
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_NAME = "emailShare";
+
+    String emailShare,name;
+
 //    private DetailClass object;
-    private DataClass object;
-//    private ReadWriteUserDetails object;
+        private DataClass object;
+    private DatabaseReference usersRef,usersRef1,usersRef2;
+
+    String rmob,mobiii,mob1, imageUrl;
+    private ReadWriteUserDetails object1;
     TextView titleTxt,txtRating,txtPassengers,txtGear,txtMaxSpeed;
-    ImageView img;
+    TextView txtRname,txtMob;
+    String mob;
+    String firebaseImageUrl;
+    ImageView img,img_renter,img_favourite;
+    String ddl1;
+
+
+    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Renters");
 
 
     private CarDetailAdapter adapter;
@@ -47,71 +67,53 @@ public class Detail extends AppCompatActivity {
         txtGear = findViewById(R.id.txtgear);
         txtMaxSpeed = findViewById(R.id.txtMaxSpeed);
         img = findViewById(R.id.img);
+        img_renter = findViewById(R.id.img_renter);
+        img_favourite = findViewById(R.id.img_favourite);
+
+
+        txtRname = findViewById(R.id.txtrname);
+        txtMob = findViewById(R.id.txtMob);
+
+
+
+
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+
+        emailShare = sharedPreferences.getString(KEY_NAME, null);
+
+//        imgProfile = findViewById(R.id.imagProfile);
+//        txtName = findViewById(R.id.txtName);
+//        txtName.setText(emailShare);
+        String desiredUsername = emailShare;
+        usersRef1 = FirebaseDatabase.getInstance().getReference("Renters");
+
+        // Retrieve the user's image URL
+        usersRef1.orderByChild("email").equalTo(desiredUsername).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+//                    String imageUrl = userSnapshot.child("imageURLUser").getValue(String.class);
+//                    Glide.with(Detail_Of_Car.this).load(imageUrl).into(img_renter);
+
+                    mob1 = userSnapshot.child("mobile").getValue(String.class);
+                }
+//                txtRname.setText(name);
+//                txtMob.setText(rmob);
+
+                mobiii = mob1;
+//                Toast.makeText(Detail_Of_Car.this, mobiii, Toast.LENGTH_SHORT).show();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the error, if any.
+            }
+        });
+
+
 
         getBundle();
-
-//        ImageSlider imageSlider = findViewById(R.id.imageslider);
-//
-//
-//
-//        ArrayList<SlideModel> slideModels=new ArrayList<>();
-//        slideModels.add(new SlideModel(R.drawable.bg, ScaleTypes.FIT));
-//        slideModels.add(new SlideModel(R.drawable.bmw, ScaleTypes.FIT));
-//        slideModels.add(new SlideModel(R.drawable.skoda, ScaleTypes.FIT));
-//        slideModels.add(new SlideModel(R.drawable.lambo, ScaleTypes.FIT));
-//
-//        imageSlider.setImageList(slideModels,ScaleTypes.FIT);
-
-
-//        recyclerViewPopular = findViewById(R.id.viewPopular);
-////        recyclerViewNew = findViewById(R.id.viewNew);
-//        recyclerViewPopular.setHasFixedSize(true);
-//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-
-//        databaseReference_High.addValueEventListener(new ValueEventListener() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                ArrayList<DetailClass> dataList = new ArrayList<>();
-//                //for each lagavvu
-//                // snapnot.getChildern()
-//
-//
-//                snapshot.getChildren();
-//
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//                        DetailClass dataClass = dataSnapshot1.getValue(DetailClass.class);
-//                        dataList.add(dataClass);
-//                    }
-//
-//                }
-//                adapter = new CarDetailAdapter(Detail.this, dataList);
-////                recyclerViewPopular.setAdapter(adapter);
-////                recyclerViewNew.setAdapter(adapter);
-//
-//
-//                recyclerViewPopular.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//            }
-//        });
-//
-
-
-    }
-
-
-
-
-    private void getBundle() {
-
-
 
 
 //        object = (DetailClass) getIntent().getSerializableExtra("object1");
@@ -119,29 +121,144 @@ public class Detail extends AppCompatActivity {
 //        object = (ReadWriteUserDetails) getIntent().getSerializableExtra("object1");
 
 
-        String firebaseImageUrl = object.getImageURL();
+         firebaseImageUrl = object.getImageURL();
 
         Glide.with(this)
                 .load(firebaseImageUrl)
                 .into(img);
 
-        if (object != null) {
-                String modelName = object.getModelName();
-            String rate = object.getCarRating();
+        titleTxt.setText(object.getModelName());
+        txtRating.setText(object.getCarRating());
+        txtPassengers.setText(object.getNumberPassengers().toString() + " Passengers");
+        txtGear.setText(object.getGearMode().toString());
+        txtMaxSpeed.setText(object.getMaximumSpeed());
 
-            if (modelName != null) {
-                titleTxt.setText(modelName);
-                txtRating.setText(rate);
-                txtPassengers.setText(object.getNumberPassengers().toString() + " Passengers");
-                txtGear.setText(object.getGearMode().toString());
-                txtMaxSpeed.setText(object.getMaximumSpeed());
-            } else {
-                Toast.makeText(this, "Model name is null", Toast.LENGTH_SHORT).show();
+        txtRname.setText(object.getRenterMobile());
+
+         mob = object.getRenterMobile();
+
+
+        usersRef = FirebaseDatabase.getInstance().getReference("Renters");
+
+        // Retrieve the user's image URL
+        usersRef.orderByChild("mobile").equalTo(mob).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String imageUrl = userSnapshot.child("imageURLUser").getValue(String.class);
+
+                    Glide.with(Detail.this).load(imageUrl).into(img_renter);
+
+                    name = userSnapshot.child("name").getValue(String.class);
+                    rmob = userSnapshot.child("mobile").getValue(String.class);
+
+
+//                    role = userSnapshot.child("role").getValue(String.class);
+
+                    // Now you can use the imageUrl in your app, e.g., to load the image using an image loading library like Glide or Picasso.
+                }
+
+
+                txtRname.setText(name);
+                txtMob.setText(rmob);
+//                editPassword.setText(pass);
+//                editMobile.setText(mob);
+//                editCity.setText(city);
+//                editDriving.setText(driving);
+//                editGender.setText(gender);
             }
-        } else {
-            Toast.makeText(this, "Object is null", Toast.LENGTH_SHORT).show();
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle the error, if any.
+            }
+        });
+
+
+
+
+
+        img_favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                usersRef1 = FirebaseDatabase.getInstance().getReference("Renters");
+
+
+                    String dd = String.valueOf(databaseReference.child(mob).child("Favorite").child("name"));
+                // Retrieve the user's image URL
+                usersRef1.orderByChild("mobile").equalTo(mobiii).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            ddl1 = userSnapshot.child("Favorite").child("name").getValue(String.class);
+//                             imageUrl = userSnapshot.child("imageURLUser").getValue(String.class);
+//                             imageUrl = userSnapshot.child("imageURL").getValue(String.class);
+
+//                            Toast.makeText(Detail.this, ddl1, Toast.LENGTH_SHORT).show();
+
+
+//
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).child("ImageUrlDemo").setValue(firebaseImageUrl.toString());
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).child("Name").setValue(object.getModelName().toString());
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).child("Rent").setValue(object.getRentPerDay().toString());
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).child("Rate").setValue(object.getCarRating().toString());
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).child("TopSpeed").setValue(object.getMaximumSpeed().toString());
+
+                            databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("imageURL").setValue(firebaseImageUrl.toString());
+                            databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("modelName").setValue(object.getModelName().toString());
+                            databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("rentPerDay").setValue(object.getRentPerDay().toString());
+                            databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("carRating").setValue(object.getCarRating().toString());
+                            databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("maximumSpeed").setValue(object.getMaximumSpeed().toString());
+
+                            startActivity(new Intent(Detail.this,Favorite.class));
+                            // This is for remove data in firebase
+//                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).removeValue();
+
+
+
+
+
+
+                            //           }
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Handle the error, if any.
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+    private void getBundle() {
+
+//
+
+
+
+
+
+    }
+
 
 
 }

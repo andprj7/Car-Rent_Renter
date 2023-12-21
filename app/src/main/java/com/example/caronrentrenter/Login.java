@@ -48,16 +48,18 @@ public class Login extends AppCompatActivity {
 
 
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+            sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
 
-        emailShare = sharedPreferences.getString(KEY_NAME, null);
+            emailShare = sharedPreferences.getString(KEY_NAME, null);
 
 
 
         if (emailShare != null) {
             Intent intent = new Intent(Login.this, MainActivity.class);
+//            Intent intent1 = new Intent(Login.this, EditProfile.class);
             startActivity(intent);
+//            startActivity(intent1);
 //            finish();
         }
 
@@ -137,25 +139,66 @@ public class Login extends AppCompatActivity {
         });
     }
 
+
+    // AA niche no code Old shared preference mate no chhe
+
+//    private void loginuser(String txtEmail, String txtPass) {
+//        auth.signInWithEmailAndPassword(txtEmail, txtPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString(KEY_NAME, txtemail.getText().toString());
+////                            editor.putString(KEY_ROLE, selectedOption.trim());
+//                    //editor.putString(KEY_PWD,edtpwd.getText().toString());
+//                    editor.apply();
+
+//                    Intent intent=new Intent(Login.this, MainActivity.class);
+//                    startActivity(intent);
+//                    Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
+//                    FirebaseUser firebaseUser = auth.getCurrentUser();
+//                    if (firebaseUser.isEmailVerified()) {
+////                        Intent intent = new Intent(Login.this, Loc.class);
+////                        startActivity(intent);
+//                        Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
+//
+//                    } else {
+//                        firebaseUser.sendEmailVerification();
+//                        auth.signOut();
+//                        showAlertDialog();
+//                    }
+//                } else {
+//                    try {
+//                        throw task.getException();
+//                    } catch (FirebaseAuthInvalidUserException e) {
+//                        txtemail.setError("User does not exist or is no longer valid.Please register again");
+//                        txtemail.requestFocus();
+//                    } catch (FirebaseAuthInvalidCredentialsException e) {
+//                        txtemail.setError("Invalid credentials.Kindly check and re-enter");
+//                        txtemail.requestFocus();
+//                    } catch (Exception e) {
+//                        Log.e(TAG, e.getMessage());
+//                        Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
+//    }
+
+
     private void loginuser(String txtEmail, String txtPass) {
         auth.signInWithEmailAndPassword(txtEmail, txtPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(KEY_NAME, txtemail.getText().toString());
-//                            editor.putString(KEY_ROLE, selectedOption.trim());
-                    //editor.putString(KEY_PWD,edtpwd.getText().toString());
-                    editor.apply();
-
-                    Intent intent=new Intent(Login.this, MainActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     if (firebaseUser.isEmailVerified()) {
-//                        Intent intent = new Intent(Login.this, Loc.class);
-//                        startActivity(intent);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(KEY_NAME, txtemail.getText().toString());
+                        editor.apply();
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
                         Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -180,6 +223,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
 
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
