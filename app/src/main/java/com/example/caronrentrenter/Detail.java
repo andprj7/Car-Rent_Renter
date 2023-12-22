@@ -3,6 +3,7 @@ package com.example.caronrentrenter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +44,7 @@ public class Detail extends AppCompatActivity {
     Button submit;
     TextView titleTxt,txtRating,txtPassengers,txtGear,txtMaxSpeed;
     TextView txtRname,txtMob;
-    ImageView call;
+    ImageView call,message;
     String mob;
     String firebaseImageUrl;
     ImageView img,img_renter,img_favourite;
@@ -74,6 +75,7 @@ public class Detail extends AppCompatActivity {
         img_favourite = findViewById(R.id.img_favourite);
         submit = findViewById(R.id.button);
         call = findViewById(R.id.img_call);
+        message = findViewById(R.id.img_message);
 
 
         txtRname = findViewById(R.id.txtrname);
@@ -244,7 +246,18 @@ public class Detail extends AppCompatActivity {
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", rmob, null));
+                startActivity(intent);
+            }
+        });
 
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.putExtra("sms_body", "Hey," + name);
+                intent.setData(Uri.parse("sms:  " + rmob));
+                startActivity(intent);
             }
         });
 
