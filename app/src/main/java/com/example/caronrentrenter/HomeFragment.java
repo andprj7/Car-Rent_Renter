@@ -4,19 +4,27 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.caronrentrenter.Adapter.ItemAdapter;
 import com.example.caronrentrenter.Adapter.RenterAdapter;
+import com.example.caronrentrenter.Car_Menu;
+import com.example.caronrentrenter.Car_item_add;
+import com.example.caronrentrenter.DataClass;
+import com.example.caronrentrenter.Profile_Ui;
+import com.example.caronrentrenter.R;
+import com.example.caronrentrenter.ReadWriteUserDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,61 +34,50 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
 
-
-
-    ConstraintLayout cat_sports,cat_wedding,cat_tour,cat_all;
-
-    SharedPreferences sharedPreferences;
+    private ConstraintLayout cat_sports, cat_wedding, cat_tour, cat_all;
+    private SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_NAME = "emailShare";
+    private String emailShare, name, mob;
 
-    String emailShare,name,mob;
-
-
-    ImageView imgProfile;
-    TextView txtName;
-
+    private ImageView imgProfile;
+    private TextView txtName;
 
     private ItemAdapter adapter;
     private RenterAdapter adapter1;
-    //    final private DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General").child("Company").child("Audi");
-    final private DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General");
-    final private DatabaseReference databaseReference_High1 = FirebaseDatabase.getInstance().getReference("Renters");
-
-
-    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Renters");
-
+    private final DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General");
+    private final DatabaseReference databaseReference_High1 = FirebaseDatabase.getInstance().getReference("Renters");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Renters");
     private DatabaseReference usersRef;
 
-
-    private RecyclerView.Adapter adapterPopular, adapterNew;
     private RecyclerView recyclerViewPopular, recyclerViewNew;
 
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        initRecyclerView();
-
-
-        cat_sports = findViewById(R.id.cat_sports);
-        cat_wedding = findViewById(R.id.cat_wedding);
-        cat_tour = findViewById(R.id.cat_tour);
-        cat_all = findViewById(R.id.cat_all);
+        cat_sports = view.findViewById(R.id.cat_sports);
+        cat_wedding = view.findViewById(R.id.cat_wedding);
+        cat_tour = view.findViewById(R.id.cat_tour);
+        cat_all = view.findViewById(R.id.cat_all);
 
 
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREF_NAME, requireActivity().MODE_PRIVATE);
 
 
         emailShare = sharedPreferences.getString(KEY_NAME, null);
-        imgProfile = findViewById(R.id.imagProfile);
-        txtName = findViewById(R.id.txtName);
+        imgProfile = view.findViewById(R.id.imagProfile);
+        txtName = view.findViewById(R.id.txtName);
 //        txtName.setText(emailShare);
 
 
@@ -98,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String imageUrl = userSnapshot.child("imageURLUser").getValue(String.class);
 
-                    Glide.with(MainActivity.this).load(imageUrl).into(imgProfile);
+                    Glide.with(HomeFragment.this).load(imageUrl).into(imgProfile);
 
                     name = userSnapshot.child("name").getValue(String.class);
 //                    email = userSnapshot.child("email").getValue(String.class);
@@ -130,25 +127,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        imgProfile = findViewById(R.id.imagProfile);
+        imgProfile = view.findViewById(R.id.imagProfile);
 
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Profile_Ui.class);
+                Intent intent = new Intent(requireActivity(), Profile_Ui.class);
                 startActivity(intent);
             }
         });
 
 
 
-        recyclerViewPopular = findViewById(R.id.viewPopular);
-        recyclerViewNew = findViewById(R.id.viewNew);
+        recyclerViewPopular = view.findViewById(R.id.viewPopular);
+        recyclerViewNew = view.findViewById(R.id.viewNew);
         recyclerViewPopular.setHasFixedSize(true);
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         recyclerViewNew.setHasFixedSize(true);
-        recyclerViewNew.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewNew.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
 
 
         databaseReference_High.addValueEventListener(new ValueEventListener() {
@@ -180,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //                }
-                adapter = new ItemAdapter(MainActivity.this,dataList);
+                adapter = new ItemAdapter( getContext(),dataList);
 //                recyclerViewPopular.setAdapter(adapter);
 //                recyclerViewNew.setAdapter(adapter);
 
@@ -227,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //
 //                }
-//                adapter = new ItemAdapter(MainActivity.this, dataList);
-                adapter1 = new RenterAdapter(MainActivity.this,dataList1);
+//                adapter = new ItemAdapter(HomeFragment.this, dataList);
+                adapter1 = new RenterAdapter( getContext(),dataList1);
 //                recyclerViewPopular.setAdapter(adapter);
                 recyclerViewNew.setAdapter(adapter1);
 
@@ -243,12 +240,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        fab = findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Car_item_add.class);
+                Intent intent = new Intent(requireActivity(), Car_item_add.class);
                 startActivity(intent);
 
             }
@@ -259,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         cat_sports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Car_Menu.class);
+                Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Sports";
                 intent.putExtra("car",path);
                 startActivity(intent);
@@ -268,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         cat_wedding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Car_Menu.class);
+                Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Wedding";
                 intent.putExtra("car",path);
                 startActivity(intent);
@@ -278,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
         cat_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Car_Menu.class);
+                Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Tour";
                 intent.putExtra("car",path);
                 startActivity(intent);
@@ -288,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         cat_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Car_Menu.class);
+                Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "General";
                 intent.putExtra("car",path);
                 startActivity(intent);
@@ -296,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        return view;
     }
 
 

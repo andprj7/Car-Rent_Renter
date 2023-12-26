@@ -3,6 +3,7 @@ package com.example.caronrentrenter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.caronrentrenter.Adapter.CarDetailAdapter;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -218,7 +220,29 @@ public class Detail extends AppCompatActivity {
                             databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("carRating").setValue(object.getCarRating().toString());
                             databaseReference.child(mobiii).child("Favorite").child(object.getModelName()).child("maximumSpeed").setValue(object.getMaximumSpeed().toString());
 
-                            startActivity(new Intent(Detail.this,Favorite.class));
+
+
+                            /*final androidx.fragment.app.FragmentManager fragmentManager=getSupportFragmentManager();
+                            final androidx.fragment.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+
+                            final ProfileFragment fragment=new ProfileFragment();*/
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.cardview), "Favourite Item", Snackbar.LENGTH_LONG);
+                            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    snackbar.dismiss();
+
+                                    //Bundle bundle   =new Bundle();
+                                    //fragment.setArguments(bundle);
+                                    //fragmentTransaction
+                                    //        .add(R.id.bottomNavView,fragment)
+                                    //        .commit();
+
+                                }
+                            });
+
+                            snackbar.show();
+
                             // This is for remove data in firebase
 //                            databaseReference.child(mob).child("Favorite").child(object.getModelName()).removeValue();
 

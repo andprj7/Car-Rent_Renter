@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
 
 
         if (emailShare != null) {
-            Intent intent = new Intent(Login.this, MainActivity.class);
+            Intent intent = new Intent(Login.this, MainFragment.class);
 //            Intent intent1 = new Intent(Login.this, EditProfile.class);
             startActivity(intent);
 //            startActivity(intent1);
@@ -154,7 +154,7 @@ public class Login extends AppCompatActivity {
 //                    //editor.putString(KEY_PWD,edtpwd.getText().toString());
 //                    editor.apply();
 
-//                    Intent intent=new Intent(Login.this, MainActivity.class);
+//                    Intent intent=new Intent(Login.this, MainFragment.class);
 //                    startActivity(intent);
 //                    Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
 //                    FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -197,7 +197,7 @@ public class Login extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(KEY_NAME, txtemail.getText().toString());
                         editor.apply();
-                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        Intent intent = new Intent(Login.this, MainFragment.class);
                         startActivity(intent);
                         Toast.makeText(Login.this, "Logged In", Toast.LENGTH_SHORT).show();
 
@@ -249,7 +249,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         if (auth.getCurrentUser() != null) {
             Toast.makeText(this, "You are already logged in", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(Login.this, MainActivity.class);
+//            Intent intent = new Intent(Login.this, MainFragment.class);
 //            startActivity(intent);
 //            finish();
         } else {
