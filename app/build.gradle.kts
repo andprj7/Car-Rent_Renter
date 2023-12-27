@@ -46,4 +46,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
+
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 }

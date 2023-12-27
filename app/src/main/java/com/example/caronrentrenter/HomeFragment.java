@@ -25,6 +25,7 @@ import com.example.caronrentrenter.DataClass;
 import com.example.caronrentrenter.Profile_Ui;
 import com.example.caronrentrenter.R;
 import com.example.caronrentrenter.ReadWriteUserDetails;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,12 +50,12 @@ public class HomeFragment extends Fragment {
     private RenterAdapter adapter1;
     private final DatabaseReference databaseReference_High = FirebaseDatabase.getInstance().getReference("Car").child("General");
     private final DatabaseReference databaseReference_High1 = FirebaseDatabase.getInstance().getReference("Renters");
-    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Renters");
     private DatabaseReference usersRef;
 
     private RecyclerView recyclerViewPopular, recyclerViewNew;
 
     private FloatingActionButton fab;
+    private ShimmerFrameLayout shimmerFrameLayout,shimmerFrameLayout1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,7 +63,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         cat_sports = view.findViewById(R.id.cat_sports);
@@ -70,25 +70,16 @@ public class HomeFragment extends Fragment {
         cat_tour = view.findViewById(R.id.cat_tour);
         cat_all = view.findViewById(R.id.cat_all);
 
-
-
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREF_NAME, requireActivity().MODE_PRIVATE);
-
 
         emailShare = sharedPreferences.getString(KEY_NAME, null);
         imgProfile = view.findViewById(R.id.imagProfile);
         txtName = view.findViewById(R.id.txtName);
-//        txtName.setText(emailShare);
-
-
-//        editEmail.setText(demo.toString());
-
 
         String desiredUsername = emailShare;
 
         usersRef = FirebaseDatabase.getInstance().getReference("Renters");
 
-        // Retrieve the user's image URL
         usersRef.orderByChild("email").equalTo(desiredUsername).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,26 +89,10 @@ public class HomeFragment extends Fragment {
                     Glide.with(HomeFragment.this).load(imageUrl).into(imgProfile);
 
                     name = userSnapshot.child("name").getValue(String.class);
-//                    email = userSnapshot.child("email").getValue(String.class);
-//                    pass = userSnapshot.child("pass").getValue(String.class);
                     mob = userSnapshot.child("mobile").getValue(String.class);
-//                    city = userSnapshot.child("city").getValue(String.class);
-//                    driving = userSnapshot.child("dll").getValue(String.class);
-//                    gender = userSnapshot.child("gender").getValue(String.class);
-
-
-//                    role = userSnapshot.child("role").getValue(String.class);
-
-                    // Now you can use the imageUrl in your app, e.g., to load the image using an image loading library like Glide or Picasso.
                 }
 
-
                 txtName.setText(name);
-//                editPassword.setText(pass);
-//                editMobile.setText(mob);
-//                editCity.setText(city);
-//                editDriving.setText(driving);
-//                editGender.setText(gender);
             }
 
             @Override
@@ -125,7 +100,6 @@ public class HomeFragment extends Fragment {
                 // Handle the error, if any.
             }
         });
-
 
         imgProfile = view.findViewById(R.id.imagProfile);
 
@@ -137,8 +111,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
         recyclerViewPopular = view.findViewById(R.id.viewPopular);
         recyclerViewNew = view.findViewById(R.id.viewNew);
         recyclerViewPopular.setHasFixedSize(true);
@@ -147,98 +119,71 @@ public class HomeFragment extends Fragment {
         recyclerViewNew.setHasFixedSize(true);
         recyclerViewNew.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
 
+        shimmerFrameLayout = view.findViewById(R.id.shimmer);
+        shimmerFrameLayout1 = view.findViewById(R.id.shimmer_1);
 
         databaseReference_High.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 ArrayList<DataClass> dataList = new ArrayList<>();
-                //for each lagavvu
-                // snapnot.getChildern()
 
-
-                snapshot.getChildren();
+                shimmerFrameLayout.startShimmer();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        for (DataSnapshot dataSnapshot2: dataSnapshot1.getChildren()) {
-                            for (DataSnapshot dataSnapshot3: dataSnapshot2.getChildren()) {
+                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
                                 DataClass dataClass = dataSnapshot3.getValue(DataClass.class);
                                 dataList.add(dataClass);
                             }
                         }
                     }
                 }
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//
-//                        DataClass dataClass = dataSnapshot.getValue(DataClass.class);
-//                        dataList.add(dataClass);
-//
-//
-//                }
-                adapter = new ItemAdapter( getContext(),dataList);
-//                recyclerViewPopular.setAdapter(adapter);
-//                recyclerViewNew.setAdapter(adapter);
 
-
+                adapter = new ItemAdapter(getContext(), dataList);
                 recyclerViewPopular.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                recyclerViewPopular.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
 
         databaseReference_High1.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-//                ArrayList<DataClass> dataList = new ArrayList<>();
                 ArrayList<ReadWriteUserDetails> dataList1 = new ArrayList<>();
-                //for each lagavvu
-                // snapnot.getChildern()
 
-
-//                snapshot.getChildren();
+                shimmerFrameLayout1.startShimmer();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if(!dataSnapshot.getKey().toString().equals(mob)){
+                    if (!dataSnapshot.getKey().equals(mob)) {
                         ReadWriteUserDetails dataClass = dataSnapshot.getValue(ReadWriteUserDetails.class);
-                        databaseReference_High1.child(dataSnapshot.getKey().toString()).setValue(dataClass);
+                        databaseReference_High1.child(dataSnapshot.getKey()).setValue(dataClass);
                         dataList1.add(dataClass);
                     }
-//                    databaseReference_High1.child(dataSnapshot.getKey().toString()).child("city").setValue("okok");
-
                 }
 
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-////                        DataClass dataClass = dataSnapshot1.getValue(DataClass.class);
-////                        dataList.add(dataClass);
-//                        ReadWriteUserDetails dataClass = dataSnapshot1.getValue(ReadWriteUserDetails.class);
-//                        dataList1.add(dataClass);
-//                    }
-//
-//                }
-//                adapter = new ItemAdapter(HomeFragment.this, dataList);
-                adapter1 = new RenterAdapter( getContext(),dataList1);
-//                recyclerViewPopular.setAdapter(adapter);
+                adapter1 = new RenterAdapter(getContext(), dataList1);
                 recyclerViewNew.setAdapter(adapter1);
+                adapter1.notifyDataSetChanged();
 
-
-//                recyclerViewNew.setAdapter(adapter);
-//                    adapter.notifyDataSetChanged();
+                shimmerFrameLayout1.stopShimmer();
+                shimmerFrameLayout1.setVisibility(View.GONE);
+                recyclerViewNew.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
 
         fab = view.findViewById(R.id.fab);
 
@@ -247,27 +192,25 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Car_item_add.class);
                 startActivity(intent);
-
             }
         });
-
-
 
         cat_sports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Sports";
-                intent.putExtra("car",path);
+                intent.putExtra("car", path);
                 startActivity(intent);
             }
         });
+
         cat_wedding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Wedding";
-                intent.putExtra("car",path);
+                intent.putExtra("car", path);
                 startActivity(intent);
             }
         });
@@ -277,7 +220,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "Tour";
-                intent.putExtra("car",path);
+                intent.putExtra("car", path);
                 startActivity(intent);
             }
         });
@@ -287,60 +230,11 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Car_Menu.class);
                 String path = "General";
-                intent.putExtra("car",path);
+                intent.putExtra("car", path);
                 startActivity(intent);
             }
         });
 
-
         return view;
     }
-
-
-//
-//
-//    private void initRecyclerView() {
-//        ArrayList<ItemDomain> ItemArrayList = new ArrayList<>();
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera ",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                2, 1, 100000000, "all"));
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                3, 2, 200000000, "bg"));
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera ",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                4, 3, 300000000, "start"));
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera ",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                5, 4, 400000000, "user1"));
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera ",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                6, 5, 500000000, "bg"));
-//
-//        ItemArrayList.add(new ItemDomain("DMD", "Opera ",
-//                "Devang Sarvaiya \n" + "Meet Ramani \n" + "Deep Moradiya",
-//                7, 6, 600000000, "img"));
-//
-//
-//        recyclerViewPopular = findViewById(R.id.viewPopular);
-//        recyclerViewNew = findViewById(R.id.viewNew);
-//
-//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        recyclerViewNew.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//
-////        adapterNew = new ItemAdapter(ItemArrayList);
-////        adapterPopular = new ItemAdapter(ItemArrayList);
-//
-//        recyclerViewNew.setAdapter(adapterNew);
-//        recyclerViewPopular.setAdapter(adapterPopular);
-//
-//
-//
-//
-//    }
 }
