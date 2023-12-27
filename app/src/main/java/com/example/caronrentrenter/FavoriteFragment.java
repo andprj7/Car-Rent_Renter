@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caronrentrenter.Adapter.FavoriteAdapter;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,8 @@ public class FavoriteFragment extends Fragment {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_NAME = "emailShare";
 
+    private ShimmerFrameLayout shimmerFrameLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -46,6 +49,10 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         dataList = new ArrayList<>();
+
+
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_fav);
+        shimmerFrameLayout.startShimmer();
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREF_NAME, requireActivity().MODE_PRIVATE);
         emailShare = sharedPreferences.getString(KEY_NAME, null);
@@ -71,6 +78,9 @@ public class FavoriteFragment extends Fragment {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             DataClass dataClass = dataSnapshot.getValue(DataClass.class);
                             dataList.add(dataClass);
@@ -78,6 +88,12 @@ public class FavoriteFragment extends Fragment {
                         adapter = new FavoriteAdapter(requireActivity(), dataList);
                         recyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+
+                        recyclerView.setVisibility(View.VISIBLE);
+
                     }
 
                     @Override

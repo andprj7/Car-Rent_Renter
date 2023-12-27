@@ -23,13 +23,52 @@
 
         app:searchIcon="@drawable/baseline_search_24"/>
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/shimmer_fav"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/search"
+        android:paddingEnd="24dp"
+        android:paddingStart="24dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+            <include layout="@layout/my_recycler_item_placeholder"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView1"
         android:layout_width="match_parent"
         android:layout_height="742dp"
         android:layout_below="@+id/search"
-        android:layout_marginTop="40dp"
-        android:scrollbars="vertical" />
+        android:layout_marginTop="20dp"
+        android:scrollbars="vertical"
+        android:visibility="gone"
+        />
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/fab"-->
